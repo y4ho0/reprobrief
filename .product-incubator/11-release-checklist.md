@@ -1,7 +1,7 @@
 # Release Checklist
 
 Source revision under local verification:
-`70afe4a646cba03792a1a4e41a37d7f0099c635d`
+`b06cd83b1015bbf9d79938a952ef09c875d0c585`
 
 ## Local release readiness
 
@@ -20,7 +20,7 @@ Source revision under local verification:
 - [x] Fresh wheel and source-distribution installation smoke tests
 - [x] Local path, personal information, generated file, and large-file scans
 - [x] Threat model, privacy boundary, changelog, support, and contribution docs
-- [x] Claim Gate passes with unsupported remote/user claims left `NOT_VERIFIED`
+- [x] Claim Gate passes with the unsupported external-user claim left `NOT_VERIFIED`
 - [x] Exact public NEW_REPOSITORY publish plan resolved
 
 ## Push Gate
@@ -39,14 +39,15 @@ Source revision under local verification:
 - [x] Static/type/coverage quality job passes on the pushed revision
 - [x] CodeQL passes on the pushed revision
 - [x] Default branch is `main`
-- [ ] Branch ruleset/protection configured and verified, or limitation recorded
-- [ ] Final release assets rebuilt from the exact release revision
-- [ ] SHA-256 checksum asset generated and verified
-- [ ] Annotated `v0.1.0` tag targets the exact release revision
-- [ ] Non-draft, non-prerelease GitHub Release published
-- [ ] Release assets downloaded and checksums verified
-- [ ] Clean install from GitHub tag and installed workflow verified
-- [ ] Claim matrix upgraded only for claims supported by final CI/Release evidence
+- [x] Branch ruleset/protection configured and verified, or limitation recorded
+- [x] Final release assets rebuilt from the exact release revision
+- [x] SHA-256 checksum asset generated and verified
+- [x] Annotated `v0.1.0` tag targets the exact release revision
+- [x] Active no-bypass `v*` tag ruleset forbids tag update and deletion
+- [x] Non-draft, non-prerelease GitHub Release published
+- [x] Release assets downloaded and checksums verified
+- [x] Clean install from GitHub tag and installed workflow verified
+- [x] Claim matrix upgraded only for claims supported by final CI/Release evidence
 
 ## Rollback and patch policy
 

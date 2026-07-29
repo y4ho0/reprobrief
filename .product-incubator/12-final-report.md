@@ -1,12 +1,12 @@
 # Final Report
 
-Primary status: PARTIAL
+Primary status: COMPLETE
 
-Reason: local gates, public GitHub publication, remote platform CI, and CodeQL
-are complete, but branch protection, `v0.1.0` Release, asset verification, and
-install-from-GitHub evidence are still open. External adoption is explicitly a
-post-release validation phase and is not required to misstate this initial
-technical release as adopted.
+Reason: the evidence-backed initial product, implementation, local and remote
+gates, protected public repository, immutable `v0.1.0` tag, formal Release,
+verified assets, and clean GitHub installation are complete. External adoption
+is explicitly a post-release validation phase and remains unverified rather than
+being misrepresented as achieved.
 
 ## 1. Executive outcome
 
@@ -100,7 +100,7 @@ third-party library.
 ## 8. Verification matrix
 
 Local source revision:
-`70afe4a646cba03792a1a4e41a37d7f0099c635d`
+`b06cd83b1015bbf9d79938a952ef09c875d0c585`
 
 - 57 tests passed on macOS 26.0 arm64 / CPython 3.14.0.
 - Branch coverage: 87%; enforced floor: 85%.
@@ -127,9 +127,14 @@ is not a universal guarantee. Every output file must be reviewed before sharing.
 ## 10. Release status
 
 Public repository: `https://github.com/y4ho0/reprobrief`, branch `main`.
-Remote CI and CodeQL pass on `70afe4a`. The `v0.1.0` tag/Release and
-install-from-GitHub gate remain open at this report checkpoint. Package-registry
-publication is outside scope.
+Remote CI and CodeQL pass on release revision `b06cd83`. The annotated
+`v0.1.0` tag resolves to that revision. The non-draft, non-prerelease Release
+contains a wheel, source distribution, and verified `SHA256SUMS`. Fresh
+installation from the GitHub tag completed an installed report-and-ZIP workflow.
+An active, no-bypass `v*` tag ruleset forbids release-tag update and deletion.
+`main` requires the eight named CI/CodeQL checks and pull requests, enforces
+linear history and resolved conversations for administrators, and disallows
+force pushes and deletion. Package-registry publication is outside scope.
 
 ## 11. Claim Gate
 
@@ -137,8 +142,9 @@ Local Claim Gate is defined in `10-claim-matrix.json`. Claims for the local
 workflow, bounded execution, named redaction behavior, guarded output, Git delta,
 zero runtime dependencies, and no ReproBrief networking/telemetry path are
 verified with bounded evidence. Cross-platform support is verified by CI.
-Formal release and external value remain `NOT_VERIFIED` until their required
-evidence exists.
+Formal release is verified by the tag, Release, asset, checksum, and installation
+evidence. External value alone remains `NOT_VERIFIED` until consented trials
+produce real evidence.
 
 ## 12. Known limitations
 

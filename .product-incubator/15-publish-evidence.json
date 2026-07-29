@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "PASS",
-  "stage": "PRE_PUSH_AND_REMOTE_CI",
+  "stage": "RELEASED",
   "checked_at_utc": "2026-07-29T01:58:33.006596+00:00",
   "mode": "NEW_REPOSITORY",
   "source_revision": "f546e344f33ecb72119987271da6802498313bf4",
@@ -101,8 +101,86 @@
       "conclusion": "success"
     }
   },
+  "release": {
+    "checked_at_utc": "2026-07-29T02:20:11Z",
+    "release_revision": "b06cd83b1015bbf9d79938a952ef09c875d0c585",
+    "release_ci": {
+      "ci_url": "https://github.com/y4ho0/reprobrief/actions/runs/30416261670",
+      "ci_conclusion": "success",
+      "codeql_url": "https://github.com/y4ho0/reprobrief/actions/runs/30416261666",
+      "codeql_conclusion": "success"
+    },
+    "tag": {
+      "name": "v0.1.0",
+      "kind": "annotated",
+      "object_sha": "78898410a39ce53d7a5228f3fa16f1cddf3fcd21",
+      "target_revision": "b06cd83b1015bbf9d79938a952ef09c875d0c585"
+    },
+    "github_release": {
+      "url": "https://github.com/y4ho0/reprobrief/releases/tag/v0.1.0",
+      "draft": false,
+      "prerelease": false,
+      "published_at_utc": "2026-07-29T02:17:54Z"
+    },
+    "assets": [
+      {
+        "name": "reprobrief-0.1.0-py3-none-any.whl",
+        "bytes": 27839,
+        "sha256": "58dcbcbd9370a88f22fe1ddd6c9772bb745932ffaadceeebac443425a93de8ed"
+      },
+      {
+        "name": "reprobrief-0.1.0.tar.gz",
+        "bytes": 34648,
+        "sha256": "bfa516cebee82b656bf5d8bbaa16b9fd3356bb637e50b93a5a351f0cc930f094"
+      },
+      {
+        "name": "SHA256SUMS",
+        "bytes": 190,
+        "sha256": "9e6791991b393861aef5fe3c631aee80966c9658a4506d43033a86b15cb520eb"
+      }
+    ],
+    "download_verification": "All assets were downloaded from the Release; both packages passed SHA256SUMS and were byte-identical to the exact-revision build.",
+    "github_install": {
+      "source": "git+https://github.com/y4ho0/reprobrief.git@v0.1.0",
+      "version": "0.1.0",
+      "resolved_revision": "b06cd83b1015bbf9d79938a952ef09c875d0c585",
+      "pip_check": "passed",
+      "installed_workflow": "inspect, approved run, exact Git capture, report, manifest, bounded streams, and ZIP passed"
+    },
+    "final_local_gates": {
+      "tests": "57 passed",
+      "branch_coverage": "87% with an 85% floor",
+      "ruff": "passed",
+      "mypy_strict": "passed for 12 source modules",
+      "bandit": "zero medium/high findings; five reviewed low subprocess/PATH notices",
+      "credential_scan": "detect-secrets reported zero findings across tracked and intended new files after exact Git-revision and published-digest metadata exclusions",
+      "pip_audit": "no known vulnerabilities in the empty runtime dependency set",
+      "claim_gate": "passed with only the external-user value claim left NOT_VERIFIED"
+    },
+    "branch_protection": {
+      "required_checks": 8,
+      "strict": true,
+      "pull_request_required": true,
+      "enforce_admins": true,
+      "required_linear_history": true,
+      "required_conversation_resolution": true,
+      "allow_force_pushes": false,
+      "allow_deletions": false
+    },
+    "release_tag_protection": {
+      "ruleset_id": 19940807,
+      "url": "https://github.com/y4ho0/reprobrief/rules/19940807",
+      "target": "refs/tags/v*",
+      "enforcement": "active",
+      "bypass_actors": 0,
+      "current_user_can_bypass": "never",
+      "allow_updates": false,
+      "allow_deletions": false
+    }
+  },
   "limitations": [
-    "Branch protection/ruleset, tag, Release, final assets, checksums, and install-from-GitHub remain open.",
-    "The preflight revision and the verified product revision precede this evidence-only update; the product source is unchanged, and this update receives its own CI before tagging."
+    "The annotated tag and SHA256SUMS are not cryptographically signed.",
+    "External-user value is not verified and remains a post-release adoption task.",
+    "The preflight and first post-push records are historical checkpoints; the release record binds the final package to its exact green revision."
   ]
 }

@@ -1,11 +1,12 @@
 # Release-readiness evidence
 
 Date: 2026-07-29
-Source revision: `70afe4a646cba03792a1a4e41a37d7f0099c635d`
+Source revision: `b06cd83b1015bbf9d79938a952ef09c875d0c585`
 Local environment: macOS 26.0 arm64, CPython 3.14.0
 
-This file records bounded local evidence. It does not substitute for remote
-platform CI, a GitHub tag/Release, or external-user validation.
+This file records bounded local evidence. Remote platform, tag, Release,
+checksum, and GitHub-install evidence is recorded separately in
+`release-v0.1.0.md`; neither file substitutes for external-user validation.
 
 ## Static and test gates
 
@@ -75,6 +76,5 @@ frozen here.
 
 ## Open gates
 
-- Branch protection/ruleset, immutable tag, Release, final asset checksums, and
-  install from the GitHub tag/release channel.
-- External-user value remains unverified and belongs to the adoption sprint.
+- External-user value remains unverified and belongs to the adoption sprint; it
+  is not a gate for truthful completion of the initial technical release.

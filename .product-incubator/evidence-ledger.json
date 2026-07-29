@@ -217,6 +217,34 @@
       ],
       "limitations": "Evidence is bounded to the declared versions and current GitHub-hosted runner images; it is not a universal platform guarantee.",
       "confidence": "high"
+    },
+    {
+      "id": "REL-001",
+      "date": "2026-07-29",
+      "phase": "release",
+      "type": "release",
+      "source": "https://github.com/y4ho0/reprobrief/releases/tag/v0.1.0 and .product-incubator/evidence/release-v0.1.0.md",
+      "fact": "Annotated tag v0.1.0 resolves to green revision b06cd83b1015bbf9d79938a952ef09c875d0c585; its formal Release contains a wheel, source distribution, and SHA256SUMS that passed download and byte-identity checks, and installation from the GitHub tag completed a packaged workflow.",
+      "meaning": "The initial technical release is reproducibly bound to tested source and independently rechecked after publication.",
+      "supports": [
+        "C-010"
+      ],
+      "limitations": "The tag and checksum file are not cryptographically signed; package-registry distribution and external-user adoption are not claimed.",
+      "confidence": "high"
+    },
+    {
+      "id": "GOV-001",
+      "date": "2026-07-29",
+      "phase": "release",
+      "type": "repository",
+      "source": "GitHub branch-protection/rulesets APIs and .product-incubator/16-branch-protection-plan.json plus 17-release-tag-ruleset-plan.json",
+      "fact": "main requires pull requests, eight strict CI/CodeQL checks, linear history, resolved conversations, and administrator enforcement; force pushes and branch deletion are disabled. Active no-bypass ruleset 19940807 blocks update and deletion of v* tags.",
+      "meaning": "The published default branch and release tags have verified maintenance and history-integrity boundaries.",
+      "supports": [
+        "release governance"
+      ],
+      "limitations": "Repository administrators retain GitHub account-level authority and must protect their credentials.",
+      "confidence": "high"
     }
   ]
 }
