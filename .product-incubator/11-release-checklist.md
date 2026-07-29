@@ -1,7 +1,7 @@
 # Release Checklist
 
 Source revision under local verification:
-`f546e344f33ecb72119987271da6802498313bf4`
+`70afe4a646cba03792a1a4e41a37d7f0099c635d`
 
 ## Local release readiness
 
@@ -29,16 +29,16 @@ Source revision under local verification:
 - [x] Authenticated GitHub login reconfirmed as `y4ho0`
 - [x] `y4ho0/reprobrief` reconfirmed nonexistent at preflight
 - [x] Local worktree contains only intended evidence output
-- [ ] Public repository created once; no alternate/suffixed target
-- [ ] `origin` equals the new target; remote was empty
-- [ ] `main` pushed without force and local/remote SHA equality verified
+- [x] Public repository created once; no alternate/suffixed target
+- [x] `origin` equals the new target; remote was empty
+- [x] `main` pushed without force and local/remote SHA equality verified
 
 ## Remote CI and release
 
-- [ ] Six platform/runtime CI jobs pass on the pushed revision
-- [ ] Static/type/coverage quality job passes on the pushed revision
-- [ ] CodeQL passes on the pushed revision
-- [ ] Default branch is `main`
+- [x] Six platform/runtime CI jobs pass on the pushed revision
+- [x] Static/type/coverage quality job passes on the pushed revision
+- [x] CodeQL passes on the pushed revision
+- [x] Default branch is `main`
 - [ ] Branch ruleset/protection configured and verified, or limitation recorded
 - [ ] Final release assets rebuilt from the exact release revision
 - [ ] SHA-256 checksum asset generated and verified

@@ -147,7 +147,7 @@
       "phase": "verification",
       "type": "runtime",
       "source": ".product-incubator/evidence/release-readiness.md",
-      "fact": "57 tests passed with 87% branch coverage on macOS 26.0 arm64 and CPython 3.14.0 at source revision f546e344f33ecb72119987271da6802498313bf4.",
+      "fact": "57 tests passed with 87% branch coverage on macOS 26.0 arm64 and CPython 3.14.0 at source revision 70afe4a646cba03792a1a4e41a37d7f0099c635d.",
       "meaning": "The complete local MVP workflow and adversarial boundaries are executable on the named local platform.",
       "supports": [
         "C-001",
@@ -202,6 +202,20 @@
         "C-007"
       ],
       "limitations": "Build tools, Python, pip, Git, OS tools, and approved commands remain supply-chain inputs.",
+      "confidence": "high"
+    },
+    {
+      "id": "CI-001",
+      "date": "2026-07-29",
+      "phase": "verification",
+      "type": "ci",
+      "source": "https://github.com/y4ho0/reprobrief/actions/runs/30415937668 and https://github.com/y4ho0/reprobrief/actions/runs/30415937641",
+      "fact": "The quality job, all six CPython 3.11/3.14 jobs on GitHub-hosted Linux, macOS, and Windows, and CodeQL passed on revision 70afe4a646cba03792a1a4e41a37d7f0099c635d.",
+      "meaning": "The bounded cross-platform/runtime claim and hosted static-analysis gate are supported for the named revision.",
+      "supports": [
+        "C-009"
+      ],
+      "limitations": "Evidence is bounded to the declared versions and current GitHub-hosted runner images; it is not a universal platform guarantee.",
       "confidence": "high"
     }
   ]

@@ -2,7 +2,7 @@
 
 Product: ReproBrief
 Domain: developer workflows, reliability, and AI-generated code governance
-Status: RELEASE_READINESS
+Status: RELEASE_CANDIDATE
 Started: 2026-07-29 (Asia/Shanghai)
 
 ## Goal
@@ -40,7 +40,8 @@ privacy, claim, and publication gates, and publish a verified `v0.1.0` release.
 - Internet research and current source inspection: AVAILABLE
 - GitHub authenticated login: `y4ho0` (verified 2026-07-29)
 - GitHub token scopes reported by the client: repository and workflow access
-- Current workspace: not a Git repository; no pre-existing product files discovered
+- Public repository: `https://github.com/y4ho0/reprobrief`, default branch `main`
+- Verified product revision: `70afe4a646cba03792a1a4e41a37d7f0099c635d`
 - Requested `incubate-product` skill: supplied by the user and package validation passed
 
 ## Assumptions

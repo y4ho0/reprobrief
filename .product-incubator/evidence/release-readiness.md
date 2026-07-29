@@ -1,7 +1,7 @@
 # Release-readiness evidence
 
 Date: 2026-07-29
-Source revision: `f546e344f33ecb72119987271da6802498313bf4`
+Source revision: `70afe4a646cba03792a1a4e41a37d7f0099c635d`
 Local environment: macOS 26.0 arm64, CPython 3.14.0
 
 This file records bounded local evidence. It does not substitute for remote
@@ -35,8 +35,8 @@ Fresh environments exercised:
 - an explicitly inherited test value that was absent from all generated files;
 - SIGINT returning 130, terminating the tested child, and writing no partial report.
 
-These executions prove local behavior only. The three-OS claim remains gated on
-GitHub Actions.
+These executions prove local behavior. The three-OS claim additionally passed
+the GitHub Actions matrix at the named source revision.
 
 ## Security and privacy
 
@@ -75,8 +75,6 @@ frozen here.
 
 ## Open gates
 
-- Linux, Windows, macOS, CPython 3.11, and CPython 3.14 CI on the pushed revision.
-- Strict publish preflight against the still-nonexistent target repository.
-- Remote SHA equality, branch protection/ruleset, immutable tag, Release, asset
-  checksums, and install from the GitHub tag/release channel.
+- Branch protection/ruleset, immutable tag, Release, final asset checksums, and
+  install from the GitHub tag/release channel.
 - External-user value remains unverified and belongs to the adoption sprint.

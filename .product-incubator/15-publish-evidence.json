@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "PASS",
-  "stage": "PRE_PUSH",
+  "stage": "PRE_PUSH_AND_REMOTE_CI",
   "checked_at_utc": "2026-07-29T01:58:33.006596+00:00",
   "mode": "NEW_REPOSITORY",
   "source_revision": "f546e344f33ecb72119987271da6802498313bf4",
@@ -78,8 +78,31 @@
     "reason": "Machine-local absolute paths and temporary test directories were removed before public commit.",
     "semantic_results_preserved": true
   },
+  "post_push": {
+    "checked_at_utc": "2026-07-29T02:11:33Z",
+    "repository": "https://github.com/y4ho0/reprobrief",
+    "visibility": "PUBLIC",
+    "default_branch": "main",
+    "verified_product_revision": "70afe4a646cba03792a1a4e41a37d7f0099c635d",
+    "local_remote_revision_equal": true,
+    "push_method": "normal push without force",
+    "ci": {
+      "url": "https://github.com/y4ho0/reprobrief/actions/runs/30415937668",
+      "conclusion": "success",
+      "quality_job": "passed",
+      "platform_runtime_jobs": {
+        "total": 6,
+        "passed": 6,
+        "matrix": "CPython 3.11 and 3.14 on ubuntu-latest, macos-latest, and windows-latest"
+      }
+    },
+    "codeql": {
+      "url": "https://github.com/y4ho0/reprobrief/actions/runs/30415937641",
+      "conclusion": "success"
+    }
+  },
   "limitations": [
-    "This is pre-push evidence. Remote SHA, CI, ruleset, tag, Release, assets, and install-from-GitHub remain open.",
-    "The preflight revision precedes this evidence-only commit; product source is unchanged."
+    "Branch protection/ruleset, tag, Release, final assets, checksums, and install-from-GitHub remain open.",
+    "The preflight revision and the verified product revision precede this evidence-only update; the product source is unchanged, and this update receives its own CI before tagging."
   ]
 }

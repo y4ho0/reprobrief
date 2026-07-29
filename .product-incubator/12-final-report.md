@@ -2,8 +2,8 @@
 
 Primary status: PARTIAL
 
-Reason: the local product and local gates are complete, but GitHub publication,
-remote platform CI, branch protection, `v0.1.0` Release, asset verification, and
+Reason: local gates, public GitHub publication, remote platform CI, and CodeQL
+are complete, but branch protection, `v0.1.0` Release, asset verification, and
 install-from-GitHub evidence are still open. External adoption is explicitly a
 post-release validation phase and is not required to misstate this initial
 technical release as adopted.
@@ -100,7 +100,7 @@ third-party library.
 ## 8. Verification matrix
 
 Local source revision:
-`f546e344f33ecb72119987271da6802498313bf4`
+`70afe4a646cba03792a1a4e41a37d7f0099c635d`
 
 - 57 tests passed on macOS 26.0 arm64 / CPython 3.14.0.
 - Branch coverage: 87%; enforced floor: 85%.
@@ -110,7 +110,7 @@ Local source revision:
   installed end-to-end cases: passed.
 - Wheel/sdist construction, Twine metadata, fresh installs, and three demos:
   passed locally.
-- Remote platform CI: pending.
+- Remote quality, Linux, macOS, and Windows jobs on CPython 3.11/3.14: passed.
 
 ## 9. Security and privacy
 
@@ -126,17 +126,19 @@ is not a universal guarantee. Every output file must be reviewed before sharing.
 
 ## 10. Release status
 
-Target: public `https://github.com/y4ho0/reprobrief`, branch `main`, version
-`v0.1.0`. Publication is explicitly authorized but has not yet occurred at this
-report checkpoint. Package-registry publication is outside scope.
+Public repository: `https://github.com/y4ho0/reprobrief`, branch `main`.
+Remote CI and CodeQL pass on `70afe4a`. The `v0.1.0` tag/Release and
+install-from-GitHub gate remain open at this report checkpoint. Package-registry
+publication is outside scope.
 
 ## 11. Claim Gate
 
 Local Claim Gate is defined in `10-claim-matrix.json`. Claims for the local
 workflow, bounded execution, named redaction behavior, guarded output, Git delta,
 zero runtime dependencies, and no ReproBrief networking/telemetry path are
-verified with bounded evidence. Cross-platform support, formal release, and
-external value remain `NOT_VERIFIED` until their required evidence exists.
+verified with bounded evidence. Cross-platform support is verified by CI.
+Formal release and external value remain `NOT_VERIFIED` until their required
+evidence exists.
 
 ## 12. Known limitations
 
