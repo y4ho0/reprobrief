@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "PASS_INTERNAL",
+  "root": ".",
+  "readmes": [
+    {
+      "path": "README.md",
+      "failures": [],
+      "warnings": [],
+      "facts": {
+        "characters": 11919,
+        "headings": 15,
+        "code_blocks": 13,
+        "concept_positions": {
+          "problem": 763,
+          "install": 3462,
+          "quick_start": 4096,
+          "result": 2509,
+          "use_cases": 5755,
+          "limitations": 6230,
+          "safety": 7755,
+          "reference": 8663
+        }
+      }
+    },
+    {
+      "path": "README.zh-CN.md",
+      "failures": [],
+      "warnings": [],
+      "facts": {
+        "characters": 5951,
+        "headings": 15,
+        "code_blocks": 13,
+        "concept_positions": {
+          "problem": 289,
+          "install": 1460,
+          "quick_start": 1949,
+          "result": 961,
+          "use_cases": 2942,
+          "limitations": 3113,
+          "safety": 3760,
+          "reference": 4154
+        }
+      }
+    }
+  ],
+  "bilingual_pairs": [
+    {
+      "primary": "README.md",
+      "secondary": "README.zh-CN.md",
+      "failures": [],
+      "warnings": []
+    }
+  ],
+  "manual_review": {
+    "status": "INTERNAL_PASS",
+    "reviewer": "INTERNAL_STRUCTURED_REVIEW",
+    "review_date": "2026-07-29",
+    "comprehension_score": 5,
+    "time_to_first_value_minutes": 1,
+    "notes": [
+      "Problem: incomplete failure reports force maintainers to repeatedly request the command, bounded logs, environment, and Git context.",
+      "Audience: maintainers plus contributors or users preparing a useful failure report.",
+      "Result: a local reviewable report directory and optional ZIP containing a human report, structured manifest, and bounded command streams.",
+      "Upload boundary: ReproBrief does not automatically upload or send the package.",
+      "Primary risk: an approved recipe executes trusted programs without a sandbox, and generated files still require manual review.",
+      "A compact text input/output preview is clearer than an unverified screenshot for v0.1.0, so visual proof is not required.",
+      "Clean verification on 2026-07-29: exact v0.1.0 Git install completed in 6.20 seconds; the documented init, inspect, and run --yes --archive path produced the report directory and ZIP in 1 second in a disposable repository.",
+      "A separate real-TTY run confirmed the interactive reprobrief run confirmation path and successful report output.",
+      "INTERNAL_READABILITY_CHECK_PASSED",
+      "EXTERNAL_COMPREHENSION_NOT_VERIFIED"
+    ]
+  },
+  "failure_count": 0,
+  "warning_count": 0
+}
