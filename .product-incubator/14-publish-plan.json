@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "mode": "DISABLED",
+  "owner": "UNSET",
+  "repository": "UNSET",
+  "visibility": "private",
+  "default_branch": "main",
+  "source_root": ".",
+  "expected_authenticated_login": "UNSET",
+  "allow_create_repository": false,
+  "allow_push": false,
+  "allow_pull_request": false,
+  "allow_release": false,
+  "allow_branch_protection": false,
+  "release_version": "",
+  "max_file_size_mib": 10,
+  "required_branch_prefix": "product/",
+  "test_commands": [],
+  "secret_scan_commands": [],
+  "dependency_audit_commands": [],
+  "notes": []
+}

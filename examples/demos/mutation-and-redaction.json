@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "commands": [
+    {
+      "name": "mutation-and-sensitive-value",
+      "argv": [
+        "{python}",
+        "-c",
+        "import os; from pathlib import Path; print(os.environ.get('REPROBRIEF_DEMO_VALUE', 'not-set')); Path('demo-artifact.txt').write_text('created by demo\\n', encoding='utf-8')"
+      ],
+      "cwd": ".",
+      "expected_exit_codes": [
+        0
+      ],
+      "timeout_seconds": 10,
+      "max_output_bytes": 4096,
+      "inherit_env": [
+        "REPROBRIEF_DEMO_VALUE"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "ENV-001",
+      "date": "2026-07-29",
+      "type": "runtime",
+      "source": "local environment inspection",
+      "fact": "The workspace is not an existing Git repository and contains no pre-existing product source files.",
+      "meaning": "A new product can be developed locally without overwriting an existing repository.",
+      "confidence": "high"
+    },
+    {
+      "id": "ENV-002",
+      "date": "2026-07-29",
+      "type": "permission",
+      "source": "GitHub authenticated user API",
+      "fact": "The active GitHub login is y4ho0 and the client reports repository and workflow scopes.",
+      "meaning": "The required GitHub identity is available; remote writes remain gated until publication preflight.",
+      "confidence": "high"
+    },
+    {
+      "id": "ENV-003",
+      "date": "2026-07-29",
+      "type": "runtime",
+      "source": "local tool version checks",
+      "fact": "Python, Node.js, Git, GitHub CLI, file operations, and code execution are available.",
+      "meaning": "The environment supports research automation, implementation, testing, and GitHub publication.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-001",
+      "date": "2026-07-29",
+      "type": "survey",
+      "source": "https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/",
+      "fact": "Stack Overflow reports 80% AI-tool use, 29% trust in accuracy, 45% frustration with almost-right output, and 66% spending more time fixing such output.",
+      "meaning": "AI-assisted development has a current, broad verification and debugging pain pattern.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-002",
+      "date": "2026-07-29",
+      "type": "survey",
+      "source": "https://www.sonarsource.com/company/press-releases/sonar-data-reveals-critical-verification-gap-in-ai-coding/",
+      "fact": "A vendor survey of more than 1,100 developers reports that 96% do not fully trust AI-code correctness, 48% always verify before commit, and 38% find its review more effortful.",
+      "meaning": "Verification is a bottleneck, although the vendor's commercial interest requires cautious interpretation.",
+      "confidence": "medium"
+    },
+    {
+      "id": "SIG-003",
+      "date": "2026-07-29",
+      "type": "community",
+      "source": "https://www.reddit.com/r/devops/comments/1v119en/whats_your_actual_workflow_when_a_test_fails_in/",
+      "fact": "A current DevOps discussion describes CI failures that cannot be reproduced locally and asks for practitioners' actual evidence-gathering routines.",
+      "meaning": "Local/CI parity and failure reproduction remain active workflow friction.",
+      "confidence": "medium"
+    },
+    {
+      "id": "SIG-004",
+      "date": "2026-07-29",
+      "type": "platform_feedback",
+      "source": "https://github.com/orgs/community/discussions/181437",
+      "fact": "GitHub's 2025 Actions feedback thread identifies continued demand for faster builds, caching, workflow flexibility, reliability, and local composite-action context.",
+      "meaning": "CI feedback and local diagnosis remain unsolved enough to influence platform roadmaps.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-005",
+      "date": "2026-07-29",
+      "type": "survey",
+      "source": "https://www.atlassian.com/teams/software-development/state-of-developer-experience-2025",
+      "fact": "Atlassian and Wakefield Research surveyed 3,500 developers and managers and report rising organizational inefficiency and developer productivity drains alongside AI adoption.",
+      "meaning": "Environment, build, documentation, and workflow friction remain relevant candidate areas.",
+      "confidence": "medium"
+    },
+    {
+      "id": "SIG-006",
+      "date": "2026-07-29",
+      "type": "platform_telemetry",
+      "source": "https://github.blog/security/application-security/next-evolution-github-advanced-security/",
+      "fact": "GitHub reports more than 39 million detected secret leaks in 2024 and describes both accidental and convenience-driven exposure.",
+      "meaning": "Secret-aware defaults are mandatory for any tool that records or shares developer evidence.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-007",
+      "date": "2026-07-29",
+      "type": "official_documentation",
+      "source": "https://docs.github.com/en/code-security/concepts/secret-security/secret-leakage-risks",
+      "fact": "GitHub documents secret exposure through repositories as well as issues, pull-request comments, discussions, and gists.",
+      "meaning": "Diagnostic text and issue-report workflows have a security boundary beyond source commits.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-008",
+      "date": "2026-07-29",
+      "type": "community",
+      "source": "https://www.reddit.com/r/opensource/comments/1q3f89b/open_source_is_being_ddosed_by_ai_slop_and_github/",
+      "fact": "Maintainers describe rising low-context submissions and explicitly prefer checking missing context and evidence over guessing whether content is AI-generated.",
+      "meaning": "Evidence completeness may be a more objective and acceptable product boundary than AI-authorship detection.",
+      "confidence": "medium"
+    },
+    {
+      "id": "SIG-009",
+      "date": "2026-07-29",
+      "type": "research_prototype",
+      "source": "https://arxiv.org/abs/2602.08072",
+      "fact": "IssueGuard treats logs, snippets, and configuration pasted into issue trackers as a secret-exposure path and reports a real-time warning prototype.",
+      "meaning": "The share-preview boundary is real, but secret-paste scanning already has research competition.",
+      "confidence": "medium"
+    },
+    {
+      "id": "SIG-010",
+      "date": "2026-07-29",
+      "type": "research",
+      "source": "https://arxiv.org/abs/2504.16777",
+      "fact": "A 2025 study analyzes co-occurring flaky failures using 10,000 test-suite runs from 24 Java projects and cites industrial repair cost.",
+      "meaning": "Flaky-test evidence is objectively verifiable, but remediation breadth is high.",
+      "confidence": "high"
+    },
+    {
+      "id": "SIG-011",
+      "date": "2026-07-29",
+      "type": "research",
+      "source": "https://arxiv.org/abs/2605.24397",
+      "fact": "A 2026 systematic review covers breaking-change propagation across five major software ecosystems.",
+      "meaning": "Dependency-update impact is broad and recurring, but an ecosystem-neutral solution risks excessive scope.",
+      "confidence": "high"
+    }
+  ]
+}
