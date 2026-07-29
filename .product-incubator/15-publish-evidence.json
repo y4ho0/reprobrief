@@ -1,5 +1,85 @@
 {
   "schema_version": 1,
-  "status": "NOT_RUN",
-  "checks": {}
+  "status": "PASS",
+  "stage": "PRE_PUSH",
+  "checked_at_utc": "2026-07-29T01:58:33.006596+00:00",
+  "mode": "NEW_REPOSITORY",
+  "source_revision": "f546e344f33ecb72119987271da6802498313bf4",
+  "preflight_revision": "c218a1f037b701aee01027b50c9498cdfa0b9ed7",
+  "checks": {
+    "git": {
+      "branch": "main",
+      "commit_count": 2,
+      "operations_in_progress": [],
+      "status_before_preflight": [],
+      "identity": {
+        "name_present": true,
+        "email_domain": "users.noreply.github.com"
+      }
+    },
+    "files": {
+      "sensitive_paths": [],
+      "oversized_files": [],
+      "local_path_leaks": [],
+      "generated_or_unrelated_tracked_files": []
+    },
+    "github": {
+      "authenticated_login": "y4ho0",
+      "target": "y4ho0/reprobrief",
+      "repository_exists": false,
+      "repository_metadata": null,
+      "remotes": []
+    },
+    "commands": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "groups": {
+        "tests": {
+          "passed": 10,
+          "results": [
+            "install from checkout passed",
+            "Ruff lint passed",
+            "Ruff format check passed",
+            "strict mypy passed",
+            "coverage state reset passed",
+            "57 tests passed",
+            "branch coverage 87% passed the 85% floor",
+            "compileall passed",
+            "installed version smoke passed",
+            "installed inspect smoke passed"
+          ]
+        },
+        "secret_scan": {
+          "tool": "detect-secrets 1.5.0",
+          "passed": 1,
+          "findings": 0,
+          "filter": "Only JSON metadata keys revision, source_revision, preflight_revision, and head are excluded as expected Git SHA fields."
+        },
+        "dependency_audit": {
+          "tool": "pip-audit 2.10.1",
+          "passed": 1,
+          "result": "No known vulnerabilities found in the empty runtime dependency set."
+        }
+      }
+    },
+    "claim_gate": {
+      "status": "PASS",
+      "claims_checked": 11,
+      "not_verified": [
+        "C-009 cross-platform/runtime matrix",
+        "C-010 formal GitHub Release",
+        "C-011 external-user value"
+      ]
+    }
+  },
+  "sanitization": {
+    "raw_tool_output_retained": false,
+    "reason": "Machine-local absolute paths and temporary test directories were removed before public commit.",
+    "semantic_results_preserved": true
+  },
+  "limitations": [
+    "This is pre-push evidence. Remote SHA, CI, ruleset, tag, Release, assets, and install-from-GitHub remain open.",
+    "The preflight revision precedes this evidence-only commit; product source is unchanged."
+  ]
 }

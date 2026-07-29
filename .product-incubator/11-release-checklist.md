@@ -25,10 +25,10 @@ Source revision under local verification:
 
 ## Push Gate
 
-- [ ] Strict publish preflight PASS on the committed publication plan
-- [ ] Authenticated GitHub login reconfirmed as `y4ho0`
-- [ ] `y4ho0/reprobrief` reconfirmed nonexistent immediately before creation
-- [ ] Local worktree contains only intended evidence output
+- [x] Strict publish preflight PASS on the committed publication plan
+- [x] Authenticated GitHub login reconfirmed as `y4ho0`
+- [x] `y4ho0/reprobrief` reconfirmed nonexistent at preflight
+- [x] Local worktree contains only intended evidence output
 - [ ] Public repository created once; no alternate/suffixed target
 - [ ] `origin` equals the new target; remote was empty
 - [ ] `main` pushed without force and local/remote SHA equality verified

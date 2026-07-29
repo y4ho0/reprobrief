@@ -81,7 +81,9 @@
     [
       ".venv/bin/detect-secrets",
       "scan",
-      "--force-use-all-plugins"
+      "--force-use-all-plugins",
+      "--exclude-lines",
+      "\"(?:source_revision|preflight_revision|revision|head)\"\\s*:"
     ]
   ],
   "dependency_audit_commands": [
@@ -94,6 +96,7 @@
   "notes": [
     "Publication intent and public v0.1.0 release are explicit in the goal.",
     "The local .venv is ignored and contains coverage 7.15.2, ruff 0.16.0, mypy 2.3.0, detect-secrets 1.5.0, pip-audit 2.10.1, Bandit 1.9.4, build 1.5.0, and twine 7.0.0.",
+    "detect-secrets excludes only JSON metadata lines whose key is revision, source_revision, preflight_revision, or head because Git SHAs are expected high-entropy hex values; scan JSON is separately parsed for zero remaining findings.",
     "Package-registry publication is not authorized.",
     "Do not choose a suffixed name if the target exists; stop instead.",
     "Do not force-push, delete, move an existing tag, or overwrite a repository."
