@@ -1,4 +1,183 @@
 {
-  "revision": "UNSET",
-  "claims": []
+  "revision": "f546e344f33ecb72119987271da6802498313bf4",
+  "claims": [
+    {
+      "id": "C-001",
+      "claim": "ReproBrief 0.1.0 performs a real recipe-to-local-brief workflow on macOS arm64 with CPython 3.14.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": ".product-incubator/evidence/release-readiness.md#runtime-and-end-to-end",
+          "result": "success, unexpected-exit, mutation/redaction, interruption, and ZIP workflows passed",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "Local runtime evidence covers macOS 26.0 arm64 and CPython 3.14 only."
+      ]
+    },
+    {
+      "id": "C-002",
+      "claim": "Recipe commands are strict argument arrays, are previewed before approval, and are executed without a shell.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": "tests/test_config.py and tests/test_cli.py; 57-test run recorded in .product-incubator/evidence/release-readiness.md",
+          "result": "unknown fields, shell-shaped inputs, traversal, nonapproval, and secret-bearing preview cases passed",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        },
+        {
+          "type": "SOURCE",
+          "reference": "src/reprobrief/runner.py",
+          "result": "subprocess.Popen uses shell=False"
+        }
+      ],
+      "limitations": [
+        "Approved child programs are trusted and are not sandboxed."
+      ]
+    },
+    {
+      "id": "C-003",
+      "claim": "stdout and stderr are concurrently drained with bounded retention; timeout and POSIX interruption clean up the tested process group.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": "tests/test_runner.py and test_real_interrupt_cleans_up_and_writes_no_partial_report",
+          "result": "200,000-byte dual-stream, timeout descendant, exited-parent descendant, and real SIGINT cases passed",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "Windows descendant cleanup is bounded but does not use a Job Object and is not claimed as universal."
+      ]
+    },
+    {
+      "id": "C-004",
+      "claim": "Generated persisted fields receive the documented best-effort path, explicit environment value, credential-shape, email, URL-credential, and private-key redaction.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": "tests/test_redaction.py, tests/test_report.py, and test_end_to_end_success_redacts_and_detects_mutation",
+          "result": "seeded sensitive values were absent from every generated file",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "This verifies named transformations, not that arbitrary output is safe to share.",
+        "Transformed, split, encoded, novel, or semantically private values may remain."
+      ]
+    },
+    {
+      "id": "C-005",
+      "claim": "Report publication refuses unrecognized or symbolic-link targets and replaces recognized output through a staged, recoverable path.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": "tests/test_output.py",
+          "result": "exclusive create, recognized force replace, unrecognized directory, symlink, and archive containment cases passed",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "The tool cannot make an arbitrary filesystem or failing disk atomic."
+      ]
+    },
+    {
+      "id": "C-006",
+      "claim": "ReproBrief reports Git status before and after execution and does not automatically revert command side effects.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "RUNTIME",
+          "reference": "test_end_to_end_success_redacts_and_detects_mutation and examples/demos/mutation-and-redaction.json",
+          "result": "a real temporary worktree mutation appeared in the manifest and remained in the worktree",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "Git status metadata can contain sensitive filenames and is subject to redaction limits."
+      ]
+    },
+    {
+      "id": "C-007",
+      "claim": "ReproBrief 0.1.0 has no third-party runtime dependencies.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "SECURITY_SCAN",
+          "reference": ".product-incubator/evidence/release-readiness.md#dependency-and-package-audit",
+          "result": "wheel METADATA had no Requires-Dist and pip-audit 2.10.1 reported no known vulnerabilities for the empty runtime requirement set",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "Python, pip/build tooling, Git, the OS, PATH executables, and approved child commands remain supply-chain inputs."
+      ]
+    },
+    {
+      "id": "C-008",
+      "claim": "The ReproBrief runtime contains no client networking or telemetry implementation and does not upload reports.",
+      "strength": "strong",
+      "status": "VERIFIED",
+      "evidence": [
+        {
+          "type": "SECURITY_SCAN",
+          "reference": ".product-incubator/evidence/release-readiness.md#security-and-privacy",
+          "result": "manual source/data-flow review plus Bandit 1.9.4 found no network client or persistence path outside requested local output",
+          "revision": "f546e344f33ecb72119987271da6802498313bf4"
+        }
+      ],
+      "limitations": [
+        "Approved child commands are outside this claim and can independently access the network or filesystem."
+      ]
+    },
+    {
+      "id": "C-009",
+      "claim": "The repository supports CPython 3.11 and 3.14 on Linux, macOS, and Windows.",
+      "strength": "strong",
+      "status": "NOT_VERIFIED",
+      "evidence": [
+        {
+          "type": "SOURCE",
+          "reference": ".github/workflows/ci.yml",
+          "result": "six-job platform/runtime matrix is configured but has not run remotely"
+        }
+      ],
+      "limitations": [
+        "Must remain NOT_VERIFIED until GitHub Actions passes on the published revision."
+      ]
+    },
+    {
+      "id": "C-010",
+      "claim": "ReproBrief v0.1.0 is formally released with verified assets and checksums.",
+      "strength": "strong",
+      "status": "NOT_VERIFIED",
+      "evidence": [],
+      "limitations": [
+        "Requires an immutable remote tag, GitHub Release, checksums, and installation from GitHub."
+      ]
+    },
+    {
+      "id": "C-011",
+      "claim": "External maintainers and reporters obtain useful value from ReproBrief.",
+      "strength": "strong",
+      "status": "NOT_VERIFIED",
+      "evidence": [],
+      "limitations": [
+        "No external-user trial has occurred; only non-fabricated post-release adoption targets are recorded."
+      ]
+    }
+  ]
 }

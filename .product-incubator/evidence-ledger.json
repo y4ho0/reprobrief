@@ -126,6 +126,83 @@
       "fact": "A 2026 systematic review covers breaking-change propagation across five major software ecosystems.",
       "meaning": "Dependency-update impact is broad and recurring, but an ecosystem-neutral solution risks excessive scope.",
       "confidence": "high"
+    },
+    {
+      "id": "DEC-001",
+      "date": "2026-07-29",
+      "phase": "decision",
+      "type": "inference",
+      "source": ".product-incubator/05-decision-record.md",
+      "fact": "P-003 ranked first in consecutive score rounds after direct competitor, distribution, and falsification checks.",
+      "meaning": "ReproBrief was frozen as the smallest defensible evidence-handoff product.",
+      "supports": [
+        "product selection"
+      ],
+      "limitations": "Model scoring is a decision aid and does not prove adoption.",
+      "confidence": "high"
+    },
+    {
+      "id": "RUN-001",
+      "date": "2026-07-29",
+      "phase": "verification",
+      "type": "runtime",
+      "source": ".product-incubator/evidence/release-readiness.md",
+      "fact": "57 tests passed with 87% branch coverage on macOS 26.0 arm64 and CPython 3.14.0 at source revision f546e344f33ecb72119987271da6802498313bf4.",
+      "meaning": "The complete local MVP workflow and adversarial boundaries are executable on the named local platform.",
+      "supports": [
+        "C-001",
+        "C-002",
+        "C-003",
+        "C-004",
+        "C-005",
+        "C-006"
+      ],
+      "limitations": "Does not prove Linux, Windows, or Python 3.11 support.",
+      "confidence": "high"
+    },
+    {
+      "id": "SCAN-001",
+      "date": "2026-07-29",
+      "phase": "security",
+      "type": "scan",
+      "source": ".product-incubator/evidence/release-readiness.md",
+      "fact": "Bandit 1.9.4 reported zero medium/high issues and detect-secrets 1.5.0 reported zero tracked-file findings; five low Bandit subprocess notices were manually reviewed.",
+      "meaning": "Named scanners found no release-blocking source or credential issue in the bounded scan.",
+      "supports": [
+        "C-004",
+        "C-008"
+      ],
+      "limitations": "A clean scan is not proof of absolute security or privacy.",
+      "confidence": "high"
+    },
+    {
+      "id": "PKG-001",
+      "date": "2026-07-29",
+      "phase": "release_readiness",
+      "type": "runtime",
+      "source": ".product-incubator/evidence/release-readiness.md",
+      "fact": "Locally built wheel and source distribution passed Twine checks, safe-member inspection, fresh installation, CLI smoke checks, and three demonstrations.",
+      "meaning": "The package is locally distributable and its core workflow survives installation.",
+      "supports": [
+        "C-001",
+        "C-007"
+      ],
+      "limitations": "Artifacts must be rebuilt from the final release revision and installed from GitHub before formal release is verified.",
+      "confidence": "high"
+    },
+    {
+      "id": "DEP-001",
+      "date": "2026-07-29",
+      "phase": "security",
+      "type": "scan",
+      "source": "pip-audit 2.10.1 against requirements-runtime.txt and wheel METADATA inspection",
+      "fact": "No Requires-Dist entry exists and pip-audit reported no known vulnerabilities for the empty runtime dependency set.",
+      "meaning": "ReproBrief 0.1.0 has no third-party runtime dependency to audit.",
+      "supports": [
+        "C-007"
+      ],
+      "limitations": "Build tools, Python, pip, Git, OS tools, and approved commands remain supply-chain inputs.",
+      "confidence": "high"
     }
   ]
 }

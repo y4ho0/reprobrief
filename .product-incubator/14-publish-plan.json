@@ -1,22 +1,101 @@
 {
   "schema_version": 1,
-  "mode": "DISABLED",
-  "owner": "UNSET",
-  "repository": "UNSET",
-  "visibility": "private",
+  "mode": "NEW_REPOSITORY",
+  "owner": "y4ho0",
+  "repository": "reprobrief",
+  "visibility": "public",
   "default_branch": "main",
   "source_root": ".",
-  "expected_authenticated_login": "UNSET",
-  "allow_create_repository": false,
-  "allow_push": false,
+  "expected_authenticated_login": "y4ho0",
+  "allow_create_repository": true,
+  "allow_push": true,
   "allow_pull_request": false,
-  "allow_release": false,
-  "allow_branch_protection": false,
-  "release_version": "",
+  "allow_release": true,
+  "allow_branch_protection": true,
+  "release_version": "v0.1.0",
   "max_file_size_mib": 10,
   "required_branch_prefix": "product/",
-  "test_commands": [],
-  "secret_scan_commands": [],
-  "dependency_audit_commands": [],
-  "notes": []
+  "test_commands": [
+    [
+      ".venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-deps",
+      "."
+    ],
+    [
+      ".venv/bin/ruff",
+      "check",
+      "src",
+      "tests"
+    ],
+    [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src",
+      "tests"
+    ],
+    [
+      ".venv/bin/mypy",
+      "src/reprobrief"
+    ],
+    [
+      ".venv/bin/coverage",
+      "erase"
+    ],
+    [
+      ".venv/bin/coverage",
+      "run",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    [
+      ".venv/bin/coverage",
+      "report"
+    ],
+    [
+      ".venv/bin/python",
+      "-m",
+      "compileall",
+      "-q",
+      "src",
+      "tests"
+    ],
+    [
+      ".venv/bin/reprobrief",
+      "--version"
+    ],
+    [
+      ".venv/bin/reprobrief",
+      "inspect",
+      "--config",
+      "examples/demos/success.json"
+    ]
+  ],
+  "secret_scan_commands": [
+    [
+      ".venv/bin/detect-secrets",
+      "scan",
+      "--force-use-all-plugins"
+    ]
+  ],
+  "dependency_audit_commands": [
+    [
+      ".venv/bin/pip-audit",
+      "--requirement",
+      "requirements-runtime.txt"
+    ]
+  ],
+  "notes": [
+    "Publication intent and public v0.1.0 release are explicit in the goal.",
+    "The local .venv is ignored and contains coverage 7.15.2, ruff 0.16.0, mypy 2.3.0, detect-secrets 1.5.0, pip-audit 2.10.1, Bandit 1.9.4, build 1.5.0, and twine 7.0.0.",
+    "Package-registry publication is not authorized.",
+    "Do not choose a suffixed name if the target exists; stop instead.",
+    "Do not force-push, delete, move an existing tag, or overwrite a repository."
+  ]
 }

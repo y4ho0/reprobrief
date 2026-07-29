@@ -1,8 +1,8 @@
 # Context
 
-Product: Developer Tool Incubator (temporary research label)
+Product: ReproBrief
 Domain: developer workflows, reliability, and AI-generated code governance
-Status: RESEARCH
+Status: RELEASE_READINESS
 Started: 2026-07-29 (Asia/Shanghai)
 
 ## Goal
