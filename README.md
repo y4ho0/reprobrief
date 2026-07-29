@@ -2,133 +2,64 @@
 
 English | [简体中文](README.zh-CN.md)
 
-ReproBrief turns a maintainer-declared reproduction command into a reviewable
-bug-report brief tied to the exact Git state in which it ran.
+When someone says “this project fails,” ReproBrief helps them create a local,
+reviewable reproduction package instead of sending only a screenshot or a
+partial error message.
 
-It records command arguments, exit status, bounded stdout/stderr, conservative
-system facts, and the Git worktree before and after execution. It then applies
-best-effort redaction and writes everything locally for you to inspect.
+It is for maintainers who need complete bug-report context and for contributors
+or users who need to provide it. The package shows the command that ran, a
+limited amount of its output, basic environment facts, and the repository state
+at the time of the failure.
 
-ReproBrief is deliberately small:
+The package stays on the user's machine; ReproBrief does not automatically
+upload it. ReproBrief runs only the programs declared in a JSON recipe that the
+user can inspect and approve. It is **not a sandbox**, and every generated file
+must be reviewed before it is shared.
 
-- no account, hosted service, telemetry, or runtime network access;
-- no shell interpolation—commands are argument arrays;
-- no source-file, `.env`, browser, editor, chat, or prompt collection;
-- no third-party runtime dependencies;
-- no claim that generated output is secret-free or that commands are sandboxed.
+## Have you run into this?
 
-> [!IMPORTANT]
-> A `reprobrief.json` file can ask ReproBrief to execute programs. Inspect the
-> recipe and run `reprobrief inspect` before approval. Only run recipes you
-> trust. ReproBrief does **not** sandbox commands. Review every generated file
-> before sharing; redaction is best-effort, not a privacy guarantee.
+A user reports that a project failed and attaches one error screenshot. The
+maintainer still has to ask:
 
-## Install
+- What exact command did you run?
+- Which Python version and operating system were you using?
+- What did the command print before it failed?
+- Which Git revision was checked out?
+- Did the command or local worktree contain uncommitted changes?
 
-ReproBrief requires CPython 3.11 or newer.
+That back-and-forth delays diagnosis and makes important context easy to lose.
+ReproBrief gathers the same bounded set of facts on every run and puts them in
+one package that the reporter can inspect before handing it to the maintainer.
+This is the intended workflow, not a claim of external-user validation.
 
-From the tagged GitHub release:
+## What ReproBrief does
 
-```console
-python -m pip install "reprobrief @ git+https://github.com/y4ho0/reprobrief.git@v0.1.0"
-reprobrief --version
+```text
+A reviewed reproduction command
+→ one approved local run
+→ a reviewable report directory and optional ZIP
 ```
 
-For an isolated install, use a tool such as
-[`pipx`](https://pipx.pypa.io/stable/):
+ReproBrief:
 
-```console
-pipx install "git+https://github.com/y4ho0/reprobrief.git@v0.1.0"
-```
+- runs commands only after showing the plan and receiving approval;
+- records the resolved command arguments, exit code, duration, and outcome;
+- keeps a configurable, limited prefix of standard output and standard error
+  (`stdout` and `stderr`) while still draining both streams;
+- records conservative operating-system, Python, ReproBrief, and Git facts;
+- compares the Git worktree state before and after the command;
+- applies best-effort masking to recognized paths, explicitly inherited values,
+  and selected high-confidence sensitive patterns;
+- writes a local human-readable report, structured record, command output files,
+  and an optional ZIP.
 
-## Quick start
+It does not collect source files, `.env` files, browser/editor/chat content, or
+prompts. ReproBrief itself makes no network request, although an approved child
+command can independently read files, modify the repository, or use the network.
 
-In the repository where a failure occurs:
+## See the result
 
-```console
-reprobrief init
-```
-
-Edit the generated `reprobrief.json` so its argument array describes the real
-reproduction command:
-
-```json
-{
-  "schema_version": 1,
-  "commands": [
-    {
-      "name": "tests",
-      "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests"],
-      "cwd": ".",
-      "expected_exit_codes": [0],
-      "timeout_seconds": 120,
-      "max_output_bytes": 65536,
-      "inherit_env": []
-    }
-  ]
-}
-```
-
-Preview the collectors and resolved argument structure:
-
-```console
-reprobrief inspect
-```
-
-Recognized paths, environment values, and secret-like arguments are masked in
-terminal previews. Inspect the recipe file itself when you need to compare the
-literal declaration.
-
-Run after reviewing the preview:
-
-```console
-reprobrief run
-```
-
-For non-interactive use, `--yes` records the caller's explicit approval:
-
-```console
-reprobrief run --yes --archive
-```
-
-The default output is `reprobrief-output/`; `--archive` additionally creates
-`reprobrief-output.zip`. Neither is uploaded.
-
-Without a recipe, `reprobrief run` collects only conservative system and Git
-facts and executes nothing.
-
-## What the recipe controls
-
-Each command has these fields:
-
-| Field | Required | Meaning |
-| --- | --- | --- |
-| `name` | yes | Safe filename key, unique in the recipe |
-| `argv` | yes | Non-empty program and argument array; never a shell string |
-| `cwd` | no | Existing directory beneath the repository; default `.` |
-| `expected_exit_codes` | no | Exit codes classified as expected; default `[0]` |
-| `timeout_seconds` | no | `1`–`300`; default `30` |
-| `max_output_bytes` | no | Bytes retained **per stream**, `1024`–`1048576`; default `65536` |
-| `inherit_env` | no | Environment-variable **names** to explicitly pass to the command |
-
-Unknown fields are errors. The structural machine-readable definition is
-[`docs/reprobrief.schema.json`](docs/reprobrief.schema.json). Runtime validation
-also checks repository containment, aggregate argument size, case-insensitive
-name collisions, and portable output filenames.
-
-When the first `argv` item is exactly `{python}`, ReproBrief replaces it with
-the interpreter running ReproBrief. `inspect` displays both the declaration and
-resolved executable, and the report records the resolved argument vector. The
-token is rejected in every other argument position.
-
-Child commands receive a small portability environment (`PATH`, temporary
-directory variables, locale, and Windows process variables where present) plus
-the names in `inherit_env`. Explicitly inherited values are registered for
-exact-value redaction and are never written as manifest fields. A program can
-still transform, split, encode, hash, or otherwise reveal a secret in a way
-ReproBrief cannot recognize. Prefer test credentials with no external value.
-
-## Output
+After a successful run with `--archive`, the repository contains:
 
 ```text
 reprobrief-output/
@@ -138,53 +69,220 @@ reprobrief-output/
 └── commands/
     ├── tests.stderr.txt
     └── tests.stdout.txt
+reprobrief-output.zip
 ```
 
-`manifest.json` is the canonical schema-versioned record. `report.md` is a
-human-readable rendering. Large streams are continuously drained to avoid
-pipe deadlock, but only the configured prefix is retained; byte counts and
-truncation are recorded.
+- `report.md` is the problem summary intended for a person to read.
+- `manifest.json` is the schema-versioned structured record for tools or deeper
+  inspection.
+- `commands/` contains the retained portion of each command's standard output
+  and standard error.
+- The generated `README.md` repeats the review and privacy warning beside the
+  evidence.
+- `reprobrief-output.zip` contains the same generated files. After reviewing
+  every file, a user can choose to attach it to an issue or send it through a
+  channel they control. ReproBrief never sends it automatically.
 
-Git status is captured before command execution and again before report files
-are written. ReproBrief reports newly appeared and disappeared status entries.
-It never resets or reverts command side effects.
+An unexpected exit or timeout can still produce this package. The failed
+observation is often the evidence the maintainer needs.
 
-An existing output directory is never replaced by default. `--force` replaces
-only a directory with a valid ReproBrief marker. Symbolic-link output targets
-are rejected.
+## Install
 
-## Exit codes
+ReproBrief requires CPython 3.11 or newer. It is not published on PyPI; install
+the verified `v0.1.0` GitHub release directly:
 
-| Code | Meaning |
-| --- | --- |
-| `0` | Brief written and every command had an expected outcome |
-| `2` | Usage or approval failure |
-| `3` | Invalid recipe or repository input |
-| `4` | Brief written, but a command failed/timed out or privacy review is required |
-| `5` | Output/archive error |
-| `130` | Interrupted by the user |
+```console
+python -m pip install "reprobrief @ git+https://github.com/y4ho0/reprobrief.git@v0.1.0"
+reprobrief --version
+```
 
-An unexpected command outcome still produces a brief when the output can be
-written. That failed observation is usually the evidence a maintainer needs.
+Expected version output:
 
-## Security and privacy boundaries
+```text
+reprobrief 0.1.0
+```
 
-ReproBrief reduces accidental disclosure; it does not make arbitrary logs safe.
-It redacts exact repository/home paths, explicitly inherited values, and a
-tested set of high-confidence credential, email, and private-key shapes.
+For an isolated installation, use a tool such as
+[`pipx`](https://pipx.pypa.io/stable/):
+
+```console
+pipx install "git+https://github.com/y4ho0/reprobrief.git@v0.1.0"
+```
+
+The [v0.1.0 Release](https://github.com/y4ho0/reprobrief/releases/tag/v0.1.0)
+also provides a wheel, source distribution, and `SHA256SUMS`.
+
+## Quick start
+
+Use these four steps in the repository where a failure occurs.
+
+1. **Create a recipe file.** This writes `reprobrief.json`; it will not replace
+   an existing file.
+
+   ```console
+   reprobrief init
+   ```
+
+2. **Describe the real reproduction command.** Edit `reprobrief.json`. This is
+   the smallest valid configuration for Python's built-in test runner; replace
+   `argv` with the command that reproduces the actual issue.
+
+   ```json
+   {
+     "schema_version": 1,
+     "commands": [
+       {
+         "name": "tests",
+         "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests"]
+       }
+     ]
+   }
+   ```
+
+3. **Preview without executing.** Confirm the resolved program, arguments,
+   working directory, timeout, output limit, and facts that will be collected.
+
+   ```console
+   reprobrief inspect
+   ```
+
+> [!IMPORTANT]
+> The next step executes the programs declared by `reprobrief.json`. Inspect the
+> recipe first and run only commands you trust. ReproBrief does **not** sandbox
+> them. Review every generated file before sharing; masking is best-effort, not
+> a privacy guarantee.
+
+4. **Approve the command and create the package.** `--yes` records explicit
+   non-interactive approval; `--archive` also creates the ZIP.
+
+   ```console
+   reprobrief run --yes --archive
+   ```
+
+You should see two `Wrote` lines ending in:
+
+```text
+.../reprobrief-output
+.../reprobrief-output.zip
+```
+
+Open `reprobrief-output/report.md` first, then inspect `manifest.json` and every
+file in `commands/`. Nothing is uploaded. For an interactive approval prompt,
+use `reprobrief run` instead and answer `y` only after reviewing the plan.
+
+## When to use ReproBrief
+
+- A bug report is missing the exact command, complete bounded logs, or basic
+  environment facts.
+- A maintainer needs the Git revision and before/after worktree state from the
+  same observation as the failure.
+- A reporter wants one local package that can be checked before sharing.
+- A project does not want diagnostic evidence uploaded to a third-party service
+  automatically.
+- A repository can provide a small, trusted reproduction recipe.
+
+## When not to use ReproBrief
+
+- The repository or command is untrusted and must run inside a real security
+  sandbox.
+- A report must be guaranteed to contain no secret or private information.
+- The workflow requires automatic upload, hosted storage, or remote execution.
+- The goal is full file-access, system-call, or network-traffic tracing.
+- The goal is automatic diagnosis, repair, or faithful replay of a CI machine.
+
+Use a sandbox, tracer, hosted support system, or project-specific diagnostic
+tool when those are the actual requirements.
+
+## What it creates or changes
+
+- `reprobrief init` creates only the requested recipe file and refuses to
+  overwrite an existing one.
+- `reprobrief run` creates `reprobrief-output/` by default. `--archive` also
+  creates `reprobrief-output.zip`.
+- An existing output is never replaced by default. `--force` replaces only a
+  directory or archive that ReproBrief recognizes as its own; symbolic-link
+  output targets are rejected.
+- ReproBrief does not reset or undo child-command side effects. The approved
+  command can change files, run other programs, or use the network with the
+  invoking user's permissions.
+- ReproBrief has no account, server, background process, or hidden remote copy.
+  Remove the generated directory, ZIP, and recipe when they are no longer
+  needed. A pip installation can be removed with `python -m pip uninstall
+  reprobrief`.
+
+Without a recipe, `reprobrief run` collects only conservative system and Git
+facts and executes no declared command.
+
+## Security and privacy
+
+ReproBrief reduces some accidental disclosure; it does not make arbitrary logs
+safe. It masks exact repository/home paths, explicitly inherited values, and a
+tested set of high-confidence credential, email, URL-credential, and private-key
+shapes.
 
 It does **not**:
 
 - sandbox or make recipe commands safe;
 - discover every secret format or semantic identifier;
-- stop a command from accessing files, credentials, or the network;
-- protect against a malicious repository, executable, dependency, or OS;
-- inspect command output that was discarded beyond the byte cap;
+- stop an approved command from accessing files, credentials, or the network;
+- protect against a malicious repository, executable, dependency, or operating
+  system;
+- inspect command output discarded beyond the configured byte limit;
 - upload, encrypt, sign, or attest a report;
 - guarantee complete process-tree cleanup on every operating system.
 
-See [Security](SECURITY.md), [privacy model](docs/privacy.md), and
-[design](docs/design.md) before adopting ReproBrief in an automated workflow.
+Read the full [security policy](SECURITY.md),
+[privacy and threat model](docs/privacy.md), and [design](docs/design.md) before
+using ReproBrief in an automated workflow.
+
+## Configuration reference
+
+Each command in the JSON configuration file has these fields:
+
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `name` | yes | Safe filename key, unique in the recipe |
+| `argv` | yes | Non-empty program and argument array; never a shell string |
+| `cwd` | no | Existing directory beneath the repository; default `.` |
+| `expected_exit_codes` | no | Exit codes classified as expected; default `[0]` |
+| `timeout_seconds` | no | `1`–`300`; default `30` |
+| `max_output_bytes` | no | Bytes retained **per stream**, `1024`–`1048576`; default `65536` |
+| `inherit_env` | no | Environment-variable **names** explicitly passed to the command |
+
+Unknown fields are errors. The machine-readable structure is
+[`docs/reprobrief.schema.json`](docs/reprobrief.schema.json). Runtime validation
+also checks repository containment, aggregate argument size, case-insensitive
+name collisions, and portable output filenames.
+
+When the first `argv` item is exactly `{python}`, ReproBrief replaces it with
+the interpreter running ReproBrief. `inspect` shows both the declaration and
+resolved executable. The token is rejected in every other argument position.
+
+Child commands receive a small portability environment (`PATH`, temporary
+directory variables, locale, and Windows process variables where present) plus
+the names in `inherit_env`. Explicitly inherited values are registered for exact
+replacement before persistence, but a program can transform, split, encode, or
+hash a value in a way ReproBrief cannot recognize. Prefer disposable test
+credentials with no external value.
+
+Command output is continuously drained to avoid pipe deadlock, but only the
+configured prefix of each stream is retained. Byte counts and truncation are
+recorded. Git status is captured before execution and again before report files
+are written.
+
+## Exit codes
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Package written and every command had an expected outcome |
+| `2` | Usage or approval failure |
+| `3` | Invalid recipe or repository input |
+| `4` | Package written, but a command failed/timed out or privacy review is required |
+| `5` | Output/archive error |
+| `130` | Interrupted by the user |
+
+An unexpected command outcome still produces a package when the output can be
+written.
 
 ## Demos
 
@@ -195,16 +293,16 @@ Three bounded recipes live in [`examples/demos`](examples/demos):
 - `mutation-and-redaction.json`: an explicit environment value and worktree
   mutation (use only in a disposable repository).
 
-Run one without copying it:
+Run the safe success example without copying it:
 
 ```console
 reprobrief inspect --config examples/demos/success.json
 reprobrief run --config examples/demos/success.json --yes --output demo-brief
 ```
 
-## Development
+## Development and contribution
 
-No test framework dependency is required:
+No third-party test framework is required:
 
 ```console
 PYTHONPATH=src python -m unittest discover -s tests -v

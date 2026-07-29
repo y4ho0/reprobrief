@@ -8,6 +8,8 @@ All notable changes are documented here.
 
 - Added a complete Simplified Chinese README, security policy, and privacy/threat
   model with language navigation and documentation-contract coverage.
+- Reorganized both READMEs around the reader's problem, visible result, shortest
+  first-value workflow, suitable use cases, and action-adjacent safety guidance.
 
 ## [0.1.0] - 2026-07-29
 
