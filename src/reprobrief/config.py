@@ -46,6 +46,10 @@ def load_recipe(path: Path | None, repo_root: Path) -> Recipe:
     if path is None:
         return empty_recipe()
     try:
+        if not path.exists():
+            raise RecipeError(f"recipe does not exist: {path}")
+        if not path.is_file():
+            raise RecipeError(f"recipe is not a regular file: {path}")
         with path.open("rb") as handle:
             payload = handle.read(_MAX_RECIPE_BYTES + 1)
         if len(payload) > _MAX_RECIPE_BYTES:

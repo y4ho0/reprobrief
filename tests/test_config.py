@@ -182,7 +182,7 @@ class ConfigTests(unittest.TestCase):
             load_recipe(path, self.root)
 
     def test_recipe_directory_is_reported_as_input_error(self) -> None:
-        with self.assertRaisesRegex(RecipeError, "cannot be read"):
+        with self.assertRaisesRegex(RecipeError, "not a regular file"):
             load_recipe(self.root, self.root)
 
     def test_recipe_source_is_absolute(self) -> None:

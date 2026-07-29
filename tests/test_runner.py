@@ -36,8 +36,8 @@ class RunnerTests(unittest.TestCase):
         )
         self.assertEqual(result.outcome, "expected")
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(result.stdout.text, "out\n")
-        self.assertEqual(result.stderr.text, "err\n")
+        self.assertEqual(result.stdout.text, f"out{os.linesep}")
+        self.assertEqual(result.stderr.text, f"err{os.linesep}")
         self.assertEqual(inherited, {})
 
     def test_python_token_resolves_and_is_recorded(self) -> None:
@@ -50,7 +50,7 @@ class RunnerTests(unittest.TestCase):
         result, _ = run_command(spec, self.root)
         self.assertEqual(result.outcome, "expected")
         self.assertEqual(result.argv[0], sys.executable)
-        self.assertEqual(result.stdout.text, "portable\n")
+        self.assertEqual(result.stdout.text, f"portable{os.linesep}")
 
     def test_expected_nonzero_is_successful_outcome(self) -> None:
         result, _ = run_command(
