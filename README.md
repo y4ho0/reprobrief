@@ -1,5 +1,7 @@
 # ReproBrief
 
+English | [简体中文](README.zh-CN.md)
+
 ReproBrief turns a maintainer-declared reproduction command into a reviewable
 bug-report brief tied to the exact Git state in which it ran.
 

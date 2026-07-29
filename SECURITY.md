@@ -1,5 +1,7 @@
 # Security policy
 
+English | [简体中文](SECURITY.zh-CN.md)
+
 ## Supported versions
 
 Until a later release exists, only the latest `0.1.x` release is supported.
@@ -26,4 +28,3 @@ commands, prevent network access, or protect the host from malicious code.
 Generated briefs are local and receive best-effort redaction. That transformation
 cannot prove that a report is safe to share. Always inspect every file. The full
 threat model and mitigations are in [`docs/privacy.md`](docs/privacy.md).
-

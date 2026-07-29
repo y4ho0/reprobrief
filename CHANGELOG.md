@@ -2,6 +2,13 @@
 
 All notable changes are documented here.
 
+## [Unreleased]
+
+### Documentation
+
+- Added a complete Simplified Chinese README, security policy, and privacy/threat
+  model with language navigation and documentation-contract coverage.
+
 ## [0.1.0] - 2026-07-29
 
 ### Added
@@ -18,4 +25,3 @@ All notable changes are documented here.
   runnable demonstrations.
 
 [0.1.0]: https://github.com/y4ho0/reprobrief/releases/tag/v0.1.0
-

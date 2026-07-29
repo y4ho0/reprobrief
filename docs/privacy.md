@@ -1,5 +1,7 @@
 # Privacy and threat model
 
+English | [简体中文](privacy.zh-CN.md)
+
 ## Assets
 
 - credentials available to the invoking user or child process;
